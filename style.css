@@ -1,0 +1,53 @@
+body
+{
+    width: 100vw;
+    height: 100vh;
+    background-color: rgb(175, 212, 175);
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+#contentWrapper
+{
+    padding: 1vw;
+    color: white;
+    background-color: rgb(11, 12, 11);
+    text-align: center;
+    font-family: jetbrains mono;
+    width: 30vw;
+    
+}
+
+#wordGuesserBox
+{
+    width: 30vw;
+    height: 35vw;
+    
+    display: flex;
+    flex-direction: column;
+    row-gap: 0.2vw;
+    justify-content: center;
+    align-items: center;
+}
+.row
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    column-gap: 0.2vw;
+}
+
+.letterBox
+{
+    width: 5vw;
+    height: 5vw;
+    border: 0.2vw solid white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2vw;
+}
