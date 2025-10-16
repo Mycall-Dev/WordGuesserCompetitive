@@ -12,7 +12,6 @@ body
     flex-direction: column;
     font-family: "JetBrains Mono", monospace;
     font-weight: 800;
-    
 }
 
 #contentWrapper
@@ -64,6 +63,7 @@ body
 
 #alphabetUse
 {
+    position: relative;
     margin-top: 2vh;
     width: 58vh;
     display: flex;
@@ -93,6 +93,24 @@ body
     justify-content: center;
     align-items: center;
     column-gap: 0.4vh;
+}
+
+#enter
+{
+    width: 8vh;
+    position: absolute;
+    right: 1.9vh;
+    bottom: 0.4vh;
+    font-size: 2vh;
+}
+
+#backSpace
+{
+    font-size: 2vh;
+    width: 8vh;
+    left: 1.9vh;
+    bottom: 0.4vh;
+    position: absolute;
 }
 
 #header

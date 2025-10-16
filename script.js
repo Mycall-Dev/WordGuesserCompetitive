@@ -227,7 +227,7 @@ var correctlyGuessedIndexList = [];
 var checkIfColorYellowList = [];
 var alphabetCount = [];
 var alphabetColors = [];
-var keyboardLayout = ["q", "w", "e", "r", "t", "y", "u", "i", "o", "p", "a", "s", "d", "f", "g", "h", "j", "k", "l", "z", "x", "c", "v", "b", "n", "m"];
+var keyboardLayout = ["q", "w", "e", "r", "t", "y", "u", "i", "o", "p", "a", "s", "d", "f", "g", "h", "j", "k", "l", "z", "x", "c", "v", "b", "n", "m", "Backspace", "Enter"];
 var won = false;
 var gameActive = true;
 var themeIsActive = false;
@@ -441,20 +441,51 @@ function updateAlphabetColors()
     }
 }
 
-
 onkeydown = (event) => 
+{
+    keyWasPressed(event.key);
+}
+
+alphabetUseBox.addEventListener('click', (event) => 
+{
+    var keyNum = 0;
+    if(event.target.id == "backSpace")
+    {
+        keyNum = 26;
+    }
+    else if(event.target.id == "enter")
+    {
+        keyNum = 27;
+    }
+    else
+    {
+        for(i=0;i<26; i++)
+        {
+            if(keyboardLayout[i] == event.target.innerHTML)
+            {
+                keyNum = i;
+                break;
+            }
+        }
+    }
+
+    keyWasPressed(keyboardLayout[keyNum]);
+}
+)
+
+function keyWasPressed(keyPressed)
 {
     if(gameActive)
     {
-        if(event.key.charCodeAt() >= 97 && event.key.charCodeAt() <= 122)
+        if(keyPressed.charCodeAt() >= 97 && keyPressed.charCodeAt() <= 122)
         {
             if(currentLetter < amountOfLetters)
             {
-                letterBoxes[currentRow * amountOfLetters + currentLetter].innerText = event.key.toUpperCase();
+                letterBoxes[currentRow * amountOfLetters + currentLetter].innerText = keyPressed.toUpperCase();
                 currentLetter++;
             }
         }
-        else if(event.key == "Backspace")
+        else if(keyPressed == "Backspace")
         {
             if(currentLetter > 0)
             {
@@ -463,7 +494,7 @@ onkeydown = (event) =>
             }
         }
 
-        else if(event.key == "Enter")
+        else if(keyPressed == "Enter")
         {
             guess();
         }
