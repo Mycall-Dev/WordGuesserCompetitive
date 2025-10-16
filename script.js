@@ -191,6 +191,11 @@ update based on that put a cap on colors like at 200 so rest can still go higher
     -choose an animation for revealing letters and their relevance
     -special codes for hidden color themes like vampire red + black etc
     that cannot be replicated with the normal slider
+
+
+    most importantly make the more lettered mode by first replacing the 
+    first spawning 5 * 6 grid with 6 empty rows of divs that get filled                                         MOST HANDY FOR SIMPLE UI
+    by script for amount of letters, then look at increasing size of wordguesserbox or reducing size of boxes (!!!width && font size!!!or size if you really want to )
 */
 var wordListStorage = [fiveLetterWordList, sixLetterWordList, sevenLetterWordList, eightLetterWordList, nineLetterWordList, tenLetterWordList];
 
