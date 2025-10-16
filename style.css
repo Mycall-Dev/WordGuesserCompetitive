@@ -12,6 +12,7 @@ body
     flex-direction: column;
     font-family: "JetBrains Mono", monospace;
     font-weight: 800;
+    
 }
 
 #contentWrapper
@@ -19,12 +20,13 @@ body
     padding: 1vw;
     color: white;
     text-align: center;
-    width: 60vh;
+    width: 100vh;
+    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    margin-bottom: 5vh;
+    margin-bottom: 5vh;    
 }
 
 #wordGuesserBox
@@ -97,3 +99,85 @@ body
 {
     font-size: 4vh;
 }
+
+#settingsBox
+{
+    position: absolute;
+    top: 5vh;
+    right: 5vh;
+}
+
+#upperSliderBox
+{
+    display: flex;
+    flex-direction: column;
+    row-gap: 3vh;
+}
+
+#sliderBox
+{
+    display: flex;
+    
+    justify-content: center;
+    align-items: center;
+}
+
+.colorSlider
+{
+    width: 30vh;
+    height: 3vh;
+    background: #a8a7a7;
+    outline: none;
+}
+
+.colorSlider::-moz-range-thumb
+{
+    outline: none;
+    border: 0vh;
+    width: 4vh;
+    height: 4vh; 
+    border-radius: 10%; 
+    cursor: pointer; 
+    border: 0.3vh solid #a8a7a7;
+}
+
+.colorSlider::-webkit-slider-thumb
+{
+    outline: none;
+    border: 0vh;
+    width: 4vh;
+    height: 4vh; 
+    border-radius: 10%; 
+    cursor: pointer; 
+    border: 0.3vh solid #a8a7a7;            
+}
+
+/*
+#colorslider1::-webkit-slider-thumb
+{   
+        background: url(./img/sizeProgressButton.png); 
+        background-size: contain; 
+        background-color: white;
+}
+
+#colorSlider1::-moz-range-thumb
+{
+            background: url(./img/sizeProgressButton.png); 
+            background-size: contain; 
+            background-color: white;
+}
+
+#colorslider2::-webkit-slider-thumb
+{   
+        background: url(./img/sizeProgressButton.png); 
+        background-size: contain; 
+        background-color: white;
+}
+
+#colorSlider2::-moz-range-thumb
+{
+            background: url(./img/sizeProgressButton.png); 
+            background-size: contain; 
+            background-color: white;
+}
+*/

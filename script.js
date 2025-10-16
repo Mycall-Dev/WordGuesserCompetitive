@@ -194,9 +194,14 @@ update based on that put a cap on colors like at 200 so rest can still go higher
 */
 var wordListStorage = [fiveLetterWordList, sixLetterWordList, sevenLetterWordList, eightLetterWordList, nineLetterWordList, tenLetterWordList];
 
+//same as not correct color and all other colors update based on the changes to this color unless specific theme
+//find a way to make it so unless a theme is active, changing the slider, changes the colors of all elements except some things like white text.
+//find a way to store themes as a color array that sets the wanted colors.
+//YOU HAVE TO MAKE "LE WORD OF THE DAY" IN NEW YORK TIMES ROMAN FONT TO RUB IT IN
+var backGroundColor = "rgb(80, 100, 80)" 
 var correctColor = "rgb(80, 100, 140)";
 var halfCorrectColor =  "rgb(140, 100, 80)";
-var notCorrectColor =  "rgb(80, 100, 80)"; 
+var notCorrectColor =  "rgb(80, 100, 80)"; //also the backgroundColor
 var startingCellColor = "rgb(100, 130, 100)";
 var notUsedLetterColor = "rgba(255, 255, 255, 1)"
 wordGuesserBox = document.getElementById("wordGuesserBox");
@@ -204,6 +209,8 @@ wordRows = wordGuesserBox.getElementsByClassName("row");
 letterBoxes = wordGuesserBox.getElementsByClassName("letterBox");
 alphabetUseBox = document.getElementById("alphabetUse");
 alphabetTiles = alphabetUseBox.getElementsByClassName("alphabetTile");
+colorSliders = document.getElementsByClassName("colorSlider");
+body = document.getElementsByTagName("body");
 currentRow = 0;
 LastRow = 5;
 currentLetter = 0;
@@ -217,8 +224,106 @@ var alphabetColors = [];
 var keyboardLayout = ["q", "w", "e", "r", "t", "y", "u", "i", "o", "p", "a", "s", "d", "f", "g", "h", "j", "k", "l", "z", "x", "c", "v", "b", "n", "m"];
 var won = false;
 var gameActive = true;
+var themeIsActive = false;
+var darkRedComponent = 0;
+var darkBlueComponent = 0;
+var darkGreenComponent = 0;
+var darkComponents = [darkRedComponent, darkBlueComponent, darkGreenComponent];
+var colorMap = [];
+var alphabetColorUpdateList = [];
 
 generateWord();
+
+colorSliders[0].addEventListener("change", (function()
+{
+        updatePageTheme(true);
+}));
+colorSliders[1].addEventListener("change", (function()
+{
+        updatePageTheme(true);
+}));
+colorSliders[2].addEventListener("change", (function()
+{
+        updatePageTheme(true);
+}));
+
+function updatePageTheme(themeCancellation)
+{
+    console.log(themeCancellation);
+    if(themeCancellation)
+    {
+        themeIsActive = false;
+    }
+
+    if(!themeIsActive)
+    {
+        redComponent = colorSliders[0].value;
+        greenComponent = colorSliders[1].value;
+        blueComponent = colorSliders[2].value;
+
+        backGroundColor = "rgb(" + redComponent + ", " + greenComponent + ", " + blueComponent + ")";
+        highestComponent = Math.max(redComponent, blueComponent, greenComponent);
+        
+        startingCellColor = "rgb(" + (parseInt(redComponent) + 40) + ", " + (parseInt(greenComponent) + 40) + ", " + (parseInt(blueComponent) + 40) + ")";
+        document.getElementsByTagName("body")[0].style.backgroundColor = backGroundColor;
+        notCorrectColor = backGroundColor;
+        wordGuesserBox.style.backgroundColor = startingCellColor;
+        
+        console.log(colorMap);
+        for(h=0;h<amountOfLetters * (LastRow + 1);h++)
+        {
+            if(colorMap[h] == "correct")
+            {
+                letterBoxes[h].style.backgroundColor = correctColor;
+            }
+            else if(colorMap[h] == "halfcorrect")
+            {
+                letterBoxes[h].style.backgroundColor = halfCorrectColor;
+            }
+            else if(colorMap[h] == "wrong")
+            {
+                letterBoxes[h].style.backgroundColor = notCorrectColor;
+            }
+            else if(colorMap[h] == "notUsed")
+            {
+                letterBoxes[h].style.backgroundColor = startingCellColor;
+            }
+            console.log(colorMap[h]);
+        }
+
+        for(c=0;c<amountOfLetters * (LastRow + 1);c++)
+        {
+            if(c < currentRow * 5)
+            {
+                letterBoxes[c].style.borderColor = letterBoxes[c].style.backgroundColor;
+            }
+            else
+            {
+                letterBoxes[c].style.borderColor = backGroundColor;
+            }
+            
+        }
+
+        for(u=0;u<26;u++)
+        {
+            if(alphabetColorUpdateList[u] == "correct")
+            {
+                alphabetColors[u] = correctColor;
+                alphabetTiles[u].style.backgroundColor = correctColor;
+            }
+            else if(alphabetColorUpdateList[u] == "halfcorrect")
+            {
+                alphabetColors[u] = halfCorrectColor;
+                alphabetTiles[u].style.backgroundColor = halfCorrectColor;
+            }
+            else if(alphabetColorUpdateList[u] == "wrong")
+            {
+                alphabetColors[u] = notCorrectColor;
+                alphabetTiles[u].style.backgroundColor = notCorrectColor;
+            }
+        }
+    }
+}
 
 function generateWord()
 {
@@ -234,24 +339,38 @@ function generateWord()
 function resetAlphabetList()
 {
     alphabetCount = [];
-    for(i=0;i<25;i++)
+    for(i=0;i<26;i++)
     {
         alphabetCount.push(0);
+    }  
+}
+
+resetColorMap();
+function resetColorMap()
+{
+    colorMap = [];
+    for(f=0;f<amountOfLetters * (LastRow + 1);f++)
+    {
+        colorMap.push("notUsed");
     }
 }
 
 function resetAlphabetColors()
 {
     alphabetColors = [];
-    for(i=0;i<25;i++)
+    alphabetColorUpdateList = [];
+    for(i=0;i<26;i++)
     {
         alphabetColors.push("white");
+        alphabetColorUpdateList.push("notUsed");
     }
+    
+    
 }
 
 function updateAlphabetColors()
 {
-    for(i=0;i<25;i++)
+    for(i=0;i<26;i++)
     {
         alphabetTiles[i].style.backgroundColor = alphabetColors[i];
         if(alphabetColors[i] != "white")
@@ -345,6 +464,7 @@ function CompareCurrentGuess()
         if(alphabetColors[returnKeyboardValue(currentGuess[i])] != correctColor && alphabetColors[returnKeyboardValue(currentGuess[i])] != halfCorrectColor)
         {
             alphabetColors[returnKeyboardValue(currentGuess[i])] = notCorrectColor;
+            alphabetColorUpdateList[returnKeyboardValue(currentGuess[i])] = "wrong";
         } 
         
     }
@@ -357,6 +477,7 @@ function CompareCurrentGuess()
                 letterBoxes[currentRow * amountOfLetters + i].style.borderColor = correctColor;
                 alphabetCount[currentGuess[i].charCodeAt()-97]--;
                 alphabetColors[returnKeyboardValue(currentGuess[i])] = correctColor;
+                alphabetColorUpdateList[returnKeyboardValue(currentGuess[i])] = "correct";
                 correctlyGuessedIndexList.push(i);
             }
     }
@@ -381,12 +502,39 @@ function CompareCurrentGuess()
                         if(alphabetColors[returnKeyboardValue(currentGuess[i])] != correctColor)
                         {
                             alphabetColors[returnKeyboardValue(currentGuess[i])] = halfCorrectColor;
+                            alphabetColorUpdateList[returnKeyboardValue(currentGuess[i])] = "halfcorrect";
                         }
                         
                     }        
                 }
             }
         }
+
+        for(r=0;r<amountOfLetters * (LastRow + 1);r++)
+        {
+            if(letterBoxes[r].style.backgroundColor == correctColor)
+            {
+                colorMap[r] = "correct";
+            }
+            else if(letterBoxes[r].style.backgroundColor == halfCorrectColor)
+            {
+                colorMap[r] = "halfcorrect";
+            }
+            else if(letterBoxes[r].style.backgroundColor == notCorrectColor)
+            {
+                colorMap[r] = "wrong";
+            }
+            else
+                {
+                    console.log(letterBoxes[r].style.backgroundColor);
+                    console.log(notCorrectColor);
+                    console.log(halfCorrectColor);
+                    
+                    
+                }
+            
+        }
+        
 
         updateAlphabetColors();
     }
@@ -400,7 +548,6 @@ function returnKeyboardValue(valueToCheck)
     {
         if(valueToCheck == keyboardLayout[g])
         {
-            console.log(g);
             return g;
         }
     }
@@ -449,6 +596,8 @@ function gameOver(exitStatus)
 
 function resetGame()
 {
+    resetAlphabetColors();
+    resetColorMap();
     gameActive = true;
     won = false;
     currentLetter = 0;
@@ -464,7 +613,7 @@ function resetGame()
         }
     }
 
-    for(n=0;n<25;n++)
+    for(n=0;n<26;n++)
     {
         alphabetColors[n] = "white";
         alphabetTiles[n].style.backgroundColor = notUsedLetterColor;
