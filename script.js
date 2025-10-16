@@ -351,7 +351,15 @@ function updatePageTheme(themeCancellation)
 
 function showMessage(text, timeToShow, timerActivation, boxExtension)
 {
-    boxSizeX = 32;
+    if(window.screen.width > 545)
+    {
+        boxSizeX = 32;
+    }   
+    else
+    {
+        boxSizeX = 18;
+    }
+    
     if(!timerActive)
     { 
         if(timerActivation)

@@ -196,6 +196,128 @@ body
     border: 0.3vh solid #a8a7a7;            
 }
 
-@media only screen and (max-width: 500px) {
+@media only screen and (max-width: 545px) 
+{
   /* properties for a screen with size 500px */
+    body
+    {
+        height: 100vh;
+    }
+
+    #contentWrapper
+    {
+        padding: 1vw;
+        height: 100vh;
+        margin-bottom: 3vh;    
+    }
+
+    #wordGuesserBox
+    {
+        padding: 1vh;
+        padding-top: 2vh;
+        border-radius: 1vh;
+        width: 38vh;
+        row-gap: 0.15vh;
+        
+    }
+    .row
+    {
+        column-gap: 0.15vh;
+    }
+
+    .letterBox
+    {
+        width: 6.5vh;
+        height: 6.5vh;
+        font-size: 2.5vh;
+    }
+
+    #alphabetUse
+    {
+        margin-top: 2vh;
+        width: 38vh;
+        row-gap: 0.4vh;
+    }
+
+    .alphabetTile
+    {
+        width: 3.5vh;
+        height: 3.5vh;
+        font-size: 1.8vh;
+        border-radius: 0.4vh;
+    }
+
+    .alphabetTileRow
+    {
+        column-gap: 0.4vh;
+    }
+
+    #enter
+    {
+        width: 5vh;
+        right: 0.2vh;
+        bottom: 0.4vh;
+        font-size: 1.5vh;
+    }
+
+    #backSpace
+    {
+        font-size: 1.5vh;
+        width: 5vh;
+        left: 0.2vh;
+        bottom: 0.4vh;
+    }
+
+    #header
+    {
+        font-size: 2.8vh;
+    }
+
+    #textBox
+    {
+        column-gap: 2vh;
+        height: 5vh;
+        width: 18vh;
+        padding: 3vh;
+        font-size: 2vh;
+        border-radius: 2vh;
+        opacity: 0;
+    }
+
+    #settingsBox
+    {
+        position: absolute;
+        top: 3vh;
+        right: 3vh;
+    }
+
+
+    #upperSliderBox
+    {
+        row-gap: 2vh;
+    }
+
+    .colorSlider
+    {
+        width: 20vh;
+        height: 2vh;
+    }
+
+    .colorSlider::-moz-range-thumb
+    {
+        border: 0vh;
+        width: 2.5vh;
+        height: 2.5vh; 
+        border-radius: 0.3vh;  
+        border: 0.2vh solid #a8a7a7;
+    }
+
+    .colorSlider::-webkit-slider-thumb
+    {
+        border: 0vh;
+        width: 2.5vh;
+        height: 2.5vh; 
+        border-radius: 0.3vh; 
+        border: 0.2vh solid #a8a7a7;            
+    }
 }
