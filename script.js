@@ -245,6 +245,10 @@ var messageTimeOut;
 var timerActive = false;
 var oldBoxExtension;
 var wordKnowledgeList;
+let vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0)
+let vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0)
+var vr;
+console.log(vw/ (0.01 * vh));
 
 generateWord();
 //calculateWordListLength();
@@ -353,35 +357,23 @@ function updatePageTheme(themeCancellation)
     }
 }
 
-function showMessage(text, timeToShow, timerActivation, boxExtension)
+function showMessage(text, timeToShow, timerActivation)
 {
-    if(window.screen.width > 545)
-    {
-        boxSizeX = 32;
-    }   
-    else
-    {
-        boxSizeX = 18;
-    }
-    
     if(!timerActive)
     { 
         if(timerActivation)
         {
-            oldBoxExtension = boxExtension;
             timerActive = true;
             messageTimeOut = setTimeout(slowDisappear, timeToShow);
             textMessage.innerHTML = text;
             textMessage.style.opacity = 1;
-            boxSizeX *= boxExtension;
-            textMessage.style.width = boxSizeX + "vh";
         } 
     }
     else
     {
         clearTimeout(messageTimeOut);
         timerActive = false;
-        showMessage(text, timeToShow, timerActivation, boxExtension);
+        showMessage(text, timeToShow, timerActivation);
     }
     
     function slowDisappear()
@@ -558,13 +550,24 @@ function guess()
         }
         else
         {
-            //showMessage("not in wordlist", 1000, true, 1);
-            showMessage("<p><span id='yellow'>" + currentGuess + "</span> not in wordlist</p>", 1000, true, 1);
+            //showMessage("not in wordlist", 1000, true);
+            showMessage("<p><span id='yellow'>" + currentGuess + "</span> not in wordlist</p>", 1000, true);
         }
     }
     else
     {
-        showMessage("word not long enough", 1000, true, 1);
+        if(currentLetter > 0)
+        {
+            for(i=0;i<amountOfLetters;i++)
+            {
+                if(letterBoxes[currentRow * amountOfLetters + i].style.backgroundColor == notCorrectColor)
+                {
+                    currentGuess += (letterBoxes[currentRow * amountOfLetters + i].innerHTML).toLowerCase();
+                }  
+            }
+            showMessage("<p><span id='yellow'>" + currentGuess + "</span> is not long enough</p>", 1000, true);
+        }
+       
     }
 }
 
@@ -714,11 +717,19 @@ function gameOver(exitStatus)
 {
     if(exitStatus == 0)
     {
-        showMessage("<p>You Lost... The Word was <span id='yellow'>" + " " + wordToGuess + "</span></p>", 5000, true, 1.6);
+        showMessage("<p>You Lost... The word was <br><span id='yellow'>" + " " + wordToGuess + "</span></p>", 5000, true);
     }
     else if(exitStatus == 1)
     {
-        showMessage("<p>You Won! The Word was <span id='yellow'>" + " " + wordToGuess + "</span></p>", 5000, true, 1.6);
+        if(currentRow == 0)
+        {
+            showMessage("<p>The word was <span id='yellow'>" + " " + wordToGuess + "</span>.<br> it took you only one try!</p>", 5000, true);
+        }
+        else
+        {
+            showMessage("<p>The word was <span id='yellow'>" + " " + wordToGuess + "</span>.<br> it took you " + (currentRow + 1) + " tries</p>", 5000, true);
+        }
+       
     }
     else if(exitStatus == 2)
     {

@@ -40,6 +40,7 @@ body
     justify-content: center;
     align-items: center;
     margin-bottom: 10vh;
+    position: relative;
 }
 .row
 {
@@ -129,17 +130,16 @@ body
     justify-content: center;
     align-items: center;
     flex-direction: row;
-    column-gap: 2vh;
     position: absolute;
     left: 50%;
     top: 50%;
     transform: translate(-50%,-50%);
-    height: 8vh;
-    width: 32vh;
-    padding: 3vh;
-    font-size: 4vh;
+    width: 80%;
+    height: auto;
+    font-size: 3.5vh;
     border-radius: 2vh;
     opacity: 0;
+    padding: 0.5vh;
 }
 
 #yellow
@@ -150,8 +150,8 @@ body
 #settingsBox
 {
     position: absolute;
-    top: 5vh;
-    right: 5vh;
+    top: 3vh;
+    right: 3vh;
 }
 
 
@@ -165,7 +165,6 @@ body
 #sliderBox
 {
     display: flex;
-    
     justify-content: center;
     align-items: center;
 }
@@ -283,10 +282,9 @@ body
 
     #textBox
     {
-        column-gap: 2vh;
-        height: 5vh;
-        width: 18vh;
-        padding: 3vh;
+        height: auto;
+        width: 80%;
+        padding: 0.5vh;
         font-size: 2vh;
         border-radius: 2vh;
         opacity: 0;
