@@ -3,6 +3,8 @@ wordModeMenu = document.getElementById("wordModeMenu");
 statsWindow = document.getElementById("statsWindow");
 settingsWindow = document.getElementById("settingsBox");
 backButton = document.getElementById("exitButton");
+letterModeButtons = wordModeMenu.getElementsByClassName("letterModeButtons");
+var lettersChosen = 5;
 var competitiveBool = false;
 
 
@@ -41,10 +43,17 @@ function openWindow(windowNum)
     windowsPossible[0].style.display = "none";
 }
 
-wordModeMenu.addEventListener("click", (function()
+wordModeMenu.addEventListener("click", (event) =>
 {
+    for(i=0;i<letterModeButtons.length;i++)
+    {
+        if(letterModeButtons[i] == event.target)
+        {
+            lettersChosen = (i + 5);
+        }
+    }
     transferStorage();
-}));
+});
 
 addEventListener("keydown", function (event) 
 {
@@ -72,6 +81,7 @@ function exitCurrentWindow()
 function transferStorage() 
 {
     localStorage.setItem("competitiveBool", competitiveBool);
+    localStorage.setItem("lettersChosen", lettersChosen);
 }
 
 

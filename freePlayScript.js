@@ -200,15 +200,9 @@ update based on that put a cap on colors like at 200 so rest can still go higher
 */
 var wordListStorage = [fiveLetterWordList, sixLetterWordList, sevenLetterWordList, eightLetterWordList, nineLetterWordList, tenLetterWordList];
 
-//remove later purely for first time using localStorage
-if((localStorage.getItem("competitiveBool")) != null)
-{
-    console.log("competitiveBool: " + localStorage.getItem("competitiveBool"));
-}
-else
-{
-    console.log("either local storage was not transferred correctly or you're working offline");
-}
+
+
+
 
 //same as not correct color and all other colors update based on the changes to this color unless specific theme
 //find a way to make it so unless a theme is active, changing the slider, changes the colors of all elements except some things like white text.
@@ -232,7 +226,6 @@ textMessage = document.getElementById("textBox");
 currentRow = 0;
 LastRow = 5;
 currentLetter = 0;
-amountOfLetters = 5;
 var currentGuess = "";
 var wordListToCheck;
 var correctlyGuessedIndexList = [];
@@ -250,15 +243,82 @@ var darkComponents = [darkRedComponent, darkBlueComponent, darkGreenComponent];
 var colorMap = [];
 var alphabetColorUpdateList = [];
 var amountOfWords = 0;
+var amountOfLetters = 0;
 var totalAmountOfWords = 0;
 var timerInterval;
 var messageTimeOut;
 var timerActive = false;
 var oldBoxExtension;
 var wordKnowledgeList;
+var editedCellWidth = 0;
+var cellWidth = 0;
 let vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0)
 let vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0)
 var vr;
+settingsWindow = document.getElementById("settingsBox");
+endWindow = document.getElementById("endWindow")
+var windowsPossible = [wordGuesserBox, settingsWindow, endWindow];
+var letterLengthArray = ["letterLengthBox5", "letterLengthBox6", "letterLengthBox7", "letterLengthBox8", "letterLengthBox9", "letterLengthBox10"];
+//remove later purely for first time using localStorage
+if((localStorage.getItem("competitiveBool")) != null)
+{
+    console.log("competitiveBool: " + localStorage.getItem("competitiveBool"));
+    console.log("competitiveBool: " + localStorage.getItem("competitiveBool"));
+    competitiveBool = (localStorage.getItem("competitiveBool"));
+    amountOfLetters = (localStorage.getItem("lettersChosen"));
+}
+else
+{
+    console.log("either local storage was not transferred correctly or you're working offline");
+    amountOfLetters = 5;
+}
+/* ADD THIS AFTER ADDING MULTIPLE LETTERS MODE
+addEventListener("keydown", function (event) 
+{
+    if (event.key === "Escape") 
+    {
+        exitCurrentWindow();
+    }
+});
+
+function exitCurrentWindow()
+{
+    if(windowsPossible[0].style.display == "none")
+    {
+        for(i=1;i<windowsPossible.length;i++)
+        {
+            windowsPossible[i].style.display = "none";
+        }
+        modeSelectionWindow.style.display = "flex";
+    }
+}
+*/
+
+generateWordRows();
+function generateWordRows()
+{
+    for(y=0;y<LastRow+1;y++)
+    {
+        for(x=0;x<amountOfLetters;x++)
+        {
+            var newLetterBox = document.createElement('div');
+            newLetterBox.className = "letterBox";
+            newLetterBox.id = letterLengthArray[amountOfLetters - 5];
+            wordRows[y].appendChild(newLetterBox); 
+            /*
+            var TableWidth = wordGuesserBox.offsetWidth;
+            cellWidth = newLetterBox.offsetWidth;
+            editedCellWidth = (TableWidth / amountOfLetters) - (cellWidth/(amountOfLetters / 1.5));
+            newLetterBox.style.width = editedCellWidth + "px";
+            if(amountOfLetters == 5)
+            {
+                newLetterBox.style.height = editedCellWidth + "px";
+            }
+            newLetterBox.style.width = 100 / amountOfLetters + " %";
+            */
+        }
+    }
+}
 
 generateWord();
 //calculateWordListLength();

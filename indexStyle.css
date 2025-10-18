@@ -14,6 +14,17 @@ body
     overflow-x: hidden;
 }
 
+#subText
+{
+    color: white;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translate(-50%, 0);
+    font-size: 1.5vh;
+    text-align: center;
+}
+
 #exitButton
 {
     margin-top: 3vh;
