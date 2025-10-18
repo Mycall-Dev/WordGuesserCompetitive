@@ -200,15 +200,14 @@ update based on that put a cap on colors like at 200 so rest can still go higher
 */
 var wordListStorage = [fiveLetterWordList, sixLetterWordList, sevenLetterWordList, eightLetterWordList, nineLetterWordList, tenLetterWordList];
 
+//remove later purely for first time using localStorage
 if((localStorage.getItem("competitiveBool")) != null)
 {
-    alert(localStorage.getItem("competitiveBool"));
-    console.log(localStorage.getItem("competitiveBool"));
+    console.log("competitiveBool: " + localStorage.getItem("competitiveBool"));
 }
 else
 {
     console.log("either local storage was not transferred correctly or you're working offline");
-    console.log(localStorage.getItem("competitiveBool"));
 }
 
 //same as not correct color and all other colors update based on the changes to this color unless specific theme
@@ -260,7 +259,6 @@ var wordKnowledgeList;
 let vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0)
 let vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0)
 var vr;
-console.log(vw/ (0.01 * vh));
 
 generateWord();
 //calculateWordListLength();
