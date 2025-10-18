@@ -1,0 +1,104 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Pixelify+Sans:wght@400..700&display=swap');
+
+body
+{
+    height: 100vh;
+    background-color: rgb(80, 100, 80);
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-family: "JetBrains Mono", monospace;
+    font-weight: 800;
+    overflow-x: hidden;
+}
+
+#exitButton
+{
+    margin-top: 3vh;
+    width: 10vh;
+    height: 5vh;
+    background-image: url("./img/backButtonPixel.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: rgba(0, 0, 0, 0);
+    border: 0px;
+    display: none;
+}
+
+#contentWrapper
+{
+    padding: 1vw;
+    color: white;
+    text-align: center;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-bottom: 5vh;    
+}
+
+.menuButton
+{
+    font-size: 3vh;
+    font-family: "JetBrains Mono", monospace;
+    font-weight: 800;
+    width: 40vh;
+    height: 10vh;
+    background-color: rgb(80, 100, 80);
+    color: rgb(255, 255, 255);
+    border: 0.5vh solid rgb(100, 130, 100);
+    border-radius: 3vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+}
+
+.menuButton:hover
+{
+    background-color: rgb(63, 82, 63);
+    border: 0.5vh solid rgb(63, 82, 63);
+}
+
+.letterModeButtons
+{
+    height: 7vh;
+}
+
+.menuWindow
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    row-gap: 1vh;
+    width: 80%;
+}
+
+#iconImg
+{
+    position: absolute;
+    width: 5vh;
+    height: 5vh;
+    top:2vh;
+    left: 50%;
+    transform: translate(-50%, 0);
+}
+
+#wordModeMenu
+{
+    display: none;
+}
+
+#settingsBox
+{
+    display: none;
+}
+
+#statsWindow
+{
+    display: none;
+}
