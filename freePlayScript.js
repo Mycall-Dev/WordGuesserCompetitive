@@ -466,7 +466,6 @@ function showMessage(text, timeToShow, timerActivation)
 
 function generateWord()
 {
-    leWordOfTheDayBool = true;
     wordListToCheck = wordListStorage[amountOfLetters-5];
     if(leWordOfTheDayBool)
     {
