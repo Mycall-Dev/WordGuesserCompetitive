@@ -269,15 +269,15 @@ var date = new Date();
 year = year.getUTCFullYear();
 month = month.getUTCMonth();
 date = date.getUTCDate();
-//remove later purely for first time using localStorage
+
 if((localStorage.getItem("competitiveBool")) != null)
 {
     competitiveBool = (localStorage.getItem("competitiveBool"));
     amountOfLetters = (localStorage.getItem("lettersChosen"));
     leWordOfTheDayBool = (localStorage.getItem("leWordOfTheDayBool"));
-    console.log("lewordofDayBool" + leWordOfTheDayBool);
-    console.log("CompetitiveBool" + competitiveBool);
-    console.log("amountoflettersl" + amountOfLetters);
+    console.log("lewordofDayBool " + leWordOfTheDayBool);
+    console.log("CompetitiveBool " + competitiveBool);
+    console.log("amountoflettersl " + amountOfLetters);
 }
 else
 {
@@ -334,7 +334,7 @@ function generateWordRows()
     }
 }
 
-generateWord();
+
 //calculateWordListLength();
 function calculateWordListLength()
 {
@@ -474,6 +474,7 @@ function showMessage(text, timeToShow, timerActivation)
     }    
 }
 
+generateWord();
 function generateWord()
 {
     wordListToCheck = wordListStorage[amountOfLetters-5];
@@ -495,6 +496,7 @@ function generateWord()
     }
     else
     {
+        console.log(leWordOfTheDayBool);
         randomFirstLetter = Math.floor(Math.random() * 26); //generates number between 0-25
         randomWordInRow = Math.floor(Math.random() * wordListToCheck[randomFirstLetter].length);
     }
