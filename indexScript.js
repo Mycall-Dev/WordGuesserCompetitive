@@ -5,6 +5,7 @@ settingsWindow = document.getElementById("settingsBox");
 backButton = document.getElementById("exitButton");
 menuButtons = modeSelectionWindow.getElementsByClassName("menuButton");
 letterModeButtons = wordModeMenu.getElementsByClassName("letterModeButtons");
+var modeChosen = "Free Play";
 var lettersChosen = 5;
 var competitiveBool = false;
 var leWordOfTheDayBool = false;
@@ -19,18 +20,21 @@ function modeSelection(modeSelected)
         openWindow(1);
         leWordOfTheDayBool = true;
         competitiveBool = true;
+        modeChosen = "Le Word of the Day";
     }
     else if(modeSelected == 2)
     {
         openWindow(1);
         competitiveBool = false;
         leWordOfTheDayBool = false;
+        modeChosen = "Free Play";
     }
     else if(modeSelected == 3)
     {
         openWindow(1);
         competitiveBool = true;
         leWordOfTheDayBool = false;
+        modeChosen = "Competitive";
     }
     else if(modeSelected == 4)
     {
@@ -91,6 +95,7 @@ function transferStorage()
     localStorage.setItem("competitiveBool", competitiveBool);
     localStorage.setItem("lettersChosen", lettersChosen);
     localStorage.setItem("leWordOfTheDayBool", leWordOfTheDayBool);  
+    localStorage.setItem("mode", modeChosen);
      
 }
 
