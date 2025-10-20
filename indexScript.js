@@ -17,6 +17,7 @@ function modeSelection(modeSelected)
     {
         openWindow(1);
         leWordOfTheDayBool = true;
+        competitiveBool = true;
     }
     else if(modeSelected == 2)
     {

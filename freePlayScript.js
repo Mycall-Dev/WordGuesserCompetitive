@@ -267,9 +267,9 @@ if((localStorage.getItem("competitiveBool")) != null)
     competitiveBool = (localStorage.getItem("competitiveBool"));
     amountOfLetters = (localStorage.getItem("lettersChosen"));
     leWordOfTheDayBool = (localStorage.getItem("leWordOfTheDayBool"));
-    console.log(leWordOfTheDayBool);
-    console.log(leWordOfTheDayBool);
-    console.log(amountOfLetters);
+    console.log("lewordofDayBool" + leWordOfTheDayBool);
+    console.log("CompetitiveBool" + competitiveBool);
+    console.log("amountoflettersl" + amountOfLetters);
 }
 else
 {
@@ -469,6 +469,7 @@ function generateWord()
     wordListToCheck = wordListStorage[amountOfLetters-5];
     if(leWordOfTheDayBool)
     {
+        console.log(leWordOfTheDayBool);
         var year = new Date();
         var month = new Date();
         var date = new Date();
