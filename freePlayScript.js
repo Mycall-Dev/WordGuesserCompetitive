@@ -264,11 +264,12 @@ var letterLengthArray = ["letterLengthBox5", "letterLengthBox6", "letterLengthBo
 //remove later purely for first time using localStorage
 if((localStorage.getItem("competitiveBool")) != null)
 {
-    console.log("competitiveBool: " + localStorage.getItem("competitiveBool"));
-    console.log("competitiveBool: " + localStorage.getItem("competitiveBool"));
     competitiveBool = (localStorage.getItem("competitiveBool"));
     amountOfLetters = (localStorage.getItem("lettersChosen"));
     leWordOfTheDayBool = (localStorage.getItem("leWordOfTheDayBool"));
+    console.log(leWordOfTheDayBool);
+    console.log(leWordOfTheDayBool);
+    console.log(amountOfLetters);
 }
 else
 {
