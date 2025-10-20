@@ -267,29 +267,24 @@ var date = new Date();
 year = year.getUTCFullYear();
 month = month.getUTCMonth();
 date = date.getUTCDate();
-var competitiveBool;
 var amountOfLetters;
 var leWordOfTheDayBool;
+var competitiveBool;
 
-if((localStorage.getItem("competitiveBool")) != null)
+competitiveBool = localStorage.getItem("lettersChosen");
+amountOfLetters = localStorage.getItem("lettersChosen");
+leWordOfTheDayBool = localStorage.getItem("leWordOfTheDayBool");
+
+if(amountOfLetters == null)
 {
-    competitiveBool = localStorage.getItem("competitiveBool");
-    amountOfLetters = localStorage.getItem("lettersChosen");
-    leWordOfTheDayBool = localStorage.getItem("leWordOfTheDayBool");
-    console.log("lewordofDayBool " + leWordOfTheDayBool);
-    console.log("CompetitiveBool " + competitiveBool);
-    console.log("amountoflettersl " + amountOfLetters);
-}
-else
-{
-    console.log("either local storage was not transferred correctly or you're working offline");
     amountOfLetters = 5;
     leWordOfTheDayBool = false;
     competitiveBool = false;
 }
 
 
-
+   
+generateWord();
 
 generateWordRows();
 function generateWordRows()
@@ -457,7 +452,8 @@ function showMessage(text, timeToShow, timerActivation)
     }    
 }
 
-generateWord();
+
+
 function generateWord()
 {
     wordListToCheck = wordListStorage[amountOfLetters-5];
