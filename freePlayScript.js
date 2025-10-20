@@ -261,6 +261,14 @@ var windowsPossible = [wordGuesserBox, settingsWindow, endWindow];
 var competitiveBool = false;
 var leWordOfTheDayBool = false;
 var letterLengthArray = ["letterLengthBox5", "letterLengthBox6", "letterLengthBox7", "letterLengthBox8", "letterLengthBox9", "letterLengthBox10"];
+var randomFirstLetter = "";
+var randomWordInRow = "";
+var year = new Date();
+var month = new Date();
+var date = new Date();
+year = year.getUTCFullYear();
+month = month.getUTCMonth();
+date = date.getUTCDate();
 //remove later purely for first time using localStorage
 if((localStorage.getItem("competitiveBool")) != null)
 {
@@ -275,6 +283,8 @@ else
 {
     console.log("either local storage was not transferred correctly or you're working offline");
     amountOfLetters = 5;
+    leWordOfTheDayBool = false;
+    competitiveBool = false;
 }
 /* ADD THIS AFTER ADDING MULTIPLE LETTERS MODE
 addEventListener("keydown", function (event) 
@@ -470,14 +480,6 @@ function generateWord()
     if(leWordOfTheDayBool == true)
     {
         //generates le word of the day based on amount of letters and the date of the player    
-        var year = new Date();
-        var month = new Date();
-        var date = new Date();
-        year = year.getUTCFullYear();
-        month = month.getUTCMonth();
-        date = date.getUTCDate();
-        var randomFirstLetter = "";
-        var randomWordInRow = "";
         var decidingString = ((Math.pow(year - date, 2)) * (amountOfLetters * month * Math.pow(date, (year - 2020)) + year * date)).toString();
                 
         randomFirstLetter = decidingString[0];
