@@ -270,20 +270,34 @@ date = date.getUTCDate();
 var amountOfLetters;
 var leWordOfTheDayBool;
 var competitiveBool;
-
-competitiveBool = localStorage.getItem("lettersChosen");
+competitiveBool = localStorage.getItem("competitiveBool");
 amountOfLetters = localStorage.getItem("lettersChosen");
 leWordOfTheDayBool = localStorage.getItem("leWordOfTheDayBool");
 
 if(amountOfLetters == null)
 {
     amountOfLetters = 5;
+}
+
+if(leWordOfTheDayBool == "true")
+{
+    leWordOfTheDayBool = true;
+}
+else
+{
     leWordOfTheDayBool = false;
+}
+
+if(competitiveBool == "true")
+{
+    competitiveBool = true;
+}
+else
+{
     competitiveBool = false;
 }
 
 
-   
 generateWord();
 
 generateWordRows();
@@ -457,9 +471,10 @@ function showMessage(text, timeToShow, timerActivation)
 function generateWord()
 {
     wordListToCheck = wordListStorage[amountOfLetters-5];
-    console.log(leWordOfTheDayBool);
+    console.log("Value:", leWordOfTheDayBool, "Type:", typeof leWordOfTheDayBool);
     if(leWordOfTheDayBool)
     {
+        console.log("Value:", leWordOfTheDayBool, "Type:", typeof leWordOfTheDayBool);
         //generates le word of the day based on amount of letters and the date of the player    
         var decidingString = ((Math.pow(year - date, 2)) * (amountOfLetters * month * Math.pow(date, (year - 2020)) + year * date)).toString();
                 
