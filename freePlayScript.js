@@ -270,9 +270,8 @@ date = date.getUTCDate();
 var competitiveBool;
 var amountOfLetters;
 var leWordOfTheDayBool;
-competitiveBool = localStorage.getItem("competitiveBool");
 
-if(competitiveBool != null)
+if((localStorage.getItem("competitiveBool")) != null)
 {
     competitiveBool = localStorage.getItem("competitiveBool");
     amountOfLetters = localStorage.getItem("lettersChosen");
