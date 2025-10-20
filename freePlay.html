@@ -7,11 +7,17 @@
          <title>Le Word</title>
     </head>
     <body>
-        
+        <div id="postStatsScreen">
+        </div>
         <div id="contentWrapper">
             <img src="./img/favicon.ico" id="iconImg">
             <div id="wordGuesserBox" >
                 <p id="yWord">Free Play</p>
+                <div id="statsBox">
+                    <p id="statsText">You got ... points for this victory<word></p>
+                    <a href="./index.html" class="statsButton" id="exitButton">Main Menu</a>
+                    <button onclick="exitStatsScreen(1)" class="statsButton" id="replayButton">New Word</button>
+                </div>
                 <div id="textBox"></div>
                 <div class="row"></div>
                 <div class="row"></div>

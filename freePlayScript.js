@@ -223,6 +223,10 @@ alphabetTiles = alphabetUseBox.getElementsByClassName("alphabetTile");
 colorSliders = document.getElementsByClassName("colorSlider");
 body = document.getElementsByTagName("body");
 textMessage = document.getElementById("textBox");
+postStatsScreen = document.getElementById("postStatsScreen");
+statsBox = document.getElementById("statsBox");
+statsText = document.getElementById("statsText");
+statButtons = document.getElementsByClassName("statsButton");
 currentRow = 0;
 LastRow = 5;
 currentLetter = 0;
@@ -252,8 +256,6 @@ var oldBoxExtension;
 var wordKnowledgeList;
 var editedCellWidth = 0;
 var cellWidth = 0;
-let vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
-let vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0);
 var vr;
 settingsWindow = document.getElementById("settingsBox");
 endWindow = document.getElementById("endWindow");
@@ -275,6 +277,9 @@ mode = localStorage.getItem("mode");
 competitiveBool = localStorage.getItem("competitiveBool");
 amountOfLetters = localStorage.getItem("lettersChosen");
 leWordOfTheDayBool = localStorage.getItem("leWordOfTheDayBool");
+var wordScore = 0;
+var pointsAchieved;
+yword = document.getElementById("yWord");
 
 if(amountOfLetters == null)
 {
@@ -286,7 +291,7 @@ if(mode == null)
     mode = "Free Play";
 }
 
-document.getElementById("yWord").innerHTML = mode;
+yword.innerHTML = mode;
 
 if(leWordOfTheDayBool == "true")
 {
@@ -312,6 +317,7 @@ generateWord();
 generateWordRows();
 function generateWordRows()
 {
+    //wordguesserrows
     for(y=0;y<LastRow+1;y++)
     {
         for(x=0;x<amountOfLetters;x++)
@@ -383,8 +389,16 @@ function updatePageTheme(themeCancellation)
         
         startingCellColor = "rgb(" + (parseInt(redComponent) + 40) + ", " + (parseInt(greenComponent) + 40) + ", " + (parseInt(blueComponent) + 40) + ")";
         document.getElementsByTagName("body")[0].style.backgroundColor = backGroundColor;
+        for(i=0;i<2;i++)
+        {
+            statButtons[i].style.backgroundColor = startingCellColor;
+            statButtons[i].style.borderColor = backGroundColor;
+        }
+        
+
         notCorrectColor = backGroundColor;
         wordGuesserBox.style.backgroundColor = startingCellColor;
+        postStatsScreen.style.backgroundColor = startingCellColor;
         
         for(h=0;h<amountOfLetters * (LastRow + 1);h++)
         {
@@ -502,7 +516,28 @@ function generateWord()
         randomWordInRow = Math.floor(Math.random() * wordListToCheck[randomFirstLetter].length);
     }
     wordToGuess = wordListToCheck[randomFirstLetter][randomWordInRow];
+    calculateWordDifficulty();
     console.log("word generated = " + wordToGuess);
+}
+
+function calculateWordDifficulty()
+{
+    wordScore = 5;
+    for(i=0;i<amountOfLetters;i++)
+    {
+        if(wordToGuess[i] == "z" || wordToGuess[i] == "x" || wordToGuess[i] == "q" || wordToGuess[i] == "w")
+        {
+            wordScore++;
+        }
+        for(j=i+1;j<amountOfLetters;j++)
+        {
+            if(wordToGuess[i] == wordToGuess[j])
+            {
+                wordScore += 1;
+            }
+        }
+    }
+    console.log(wordScore);
 }
 
 resetAlphabetList();
@@ -735,7 +770,7 @@ function CompareCurrentGuess()
 
     if(correctlyGuessedIndexList.length == amountOfLetters)
     {
-        won = true
+        won = true;
     }
     else
     {
@@ -819,30 +854,45 @@ function checkRow()
     }
 }
 
+function calculatePointsAchieved()
+{
+    if(won == true)
+    {
+        pointsAchieved =  Math.floor(100 - ((currentRow * 5/wordScore) * (100 / (LastRow + 1))));
+    }
+    else
+    {
+        pointsAchieved = 0;
+    }
+    
+}
+
+function showStatsScreen()
+{
+    gameActive = false;
+    calculatePointsAchieved();
+    statsBox.style.display = "block";
+    statsText.innerHTML = "difficulty: " + wordScore+"/10  points achieved: " + pointsAchieved;
+    postStatsScreen.style.display = "flex";
+    alphabetUseBox.style.display = "none";
+    yword.style.display = "none";
+    wordGuesserBox.style.marginBottom = 25 + "vh";
+}   
+
+function exitStatsScreen()
+{
+        statsBox.style.display = "none";
+        postStatsScreen.style.display = "none";
+        alphabetUseBox.style.display = "flex";
+        yword.style.display = "flex";
+        wordGuesserBox.style.marginBottom = 0 + "vh";
+        resetGame();
+}
+
 function gameOver(exitStatus)
 {
-    if(exitStatus == 0)
-    {
-        showMessage("<p>You Lost... The word was <br><span id='yellow'>" + " " + wordToGuess + "</span></p>", 5000, true);
-    }
-    else if(exitStatus == 1)
-    {
-        if(currentRow == 0)
-        {
-            showMessage("<p>The word was <span id='yellow'>" + " " + wordToGuess + "</span>.<br> it took you only one try!</p>", 5000, true);
-        }
-        else
-        {
-            showMessage("<p>The word was <span id='yellow'>" + " " + wordToGuess + "</span>.<br> it took you " + (currentRow + 1) + " tries</p>", 5000, true);
-        }
-       
-    }
-    else if(exitStatus == 2)
-    {
-        console.log("Abandoning Game");
-    }
-    gameActive = false;
-    resetGame();
+    showStatsScreen(exitStatus);    
+    //maybe add sfx or animations
 }
 
 function resetGame()
