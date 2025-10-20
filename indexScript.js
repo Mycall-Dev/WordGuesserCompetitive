@@ -3,28 +3,32 @@ wordModeMenu = document.getElementById("wordModeMenu");
 statsWindow = document.getElementById("statsWindow");
 settingsWindow = document.getElementById("settingsBox");
 backButton = document.getElementById("exitButton");
+menuButtons = modeSelectionWindow.getElementsByClassName("menuButton");
 letterModeButtons = wordModeMenu.getElementsByClassName("letterModeButtons");
 var lettersChosen = 5;
 var competitiveBool = false;
-
+var leWordOfTheDayBool = false;
 
 windowsPossible = [modeSelectionWindow, wordModeMenu, statsWindow, settingsWindow];
 
 function modeSelection(modeSelected)
-{
+{ 
     if(modeSelected == 1)
     {
-        window.alert("WIP: not ready yet"); //will just be an <a> tag
+        openWindow(1);
+        leWordOfTheDayBool = true;
     }
     else if(modeSelected == 2)
     {
         openWindow(1);
         competitiveBool = false;
+        leWordOfTheDayBool = false;
     }
     else if(modeSelected == 3)
     {
         openWindow(1);
         competitiveBool = true;
+        leWordOfTheDayBool = false;
     }
     else if(modeSelected == 4)
     {
@@ -35,6 +39,7 @@ function modeSelection(modeSelected)
         openWindow(3);
     }
 }
+
 
 function openWindow(windowNum)
 {
@@ -54,6 +59,7 @@ wordModeMenu.addEventListener("click", (event) =>
     }
     transferStorage();
 });
+
 
 addEventListener("keydown", function (event) 
 {
@@ -82,6 +88,8 @@ function transferStorage()
 {
     localStorage.setItem("competitiveBool", competitiveBool);
     localStorage.setItem("lettersChosen", lettersChosen);
+    localStorage.setItem("leWordOfTheDayBool", leWordOfTheDayBool);
 }
+
 
 

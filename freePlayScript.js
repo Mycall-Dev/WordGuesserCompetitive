@@ -258,6 +258,8 @@ var vr;
 settingsWindow = document.getElementById("settingsBox");
 endWindow = document.getElementById("endWindow")
 var windowsPossible = [wordGuesserBox, settingsWindow, endWindow];
+var competitiveBool = false;
+var leWordOfTheDayBool = false;
 var letterLengthArray = ["letterLengthBox5", "letterLengthBox6", "letterLengthBox7", "letterLengthBox8", "letterLengthBox9", "letterLengthBox10"];
 //remove later purely for first time using localStorage
 if((localStorage.getItem("competitiveBool")) != null)
@@ -266,6 +268,7 @@ if((localStorage.getItem("competitiveBool")) != null)
     console.log("competitiveBool: " + localStorage.getItem("competitiveBool"));
     competitiveBool = (localStorage.getItem("competitiveBool"));
     amountOfLetters = (localStorage.getItem("lettersChosen"));
+    leWordOfTheDayBool = (localStorage.getItem("leWordOfTheDayBool"));
 }
 else
 {
@@ -463,8 +466,50 @@ function showMessage(text, timeToShow, timerActivation)
 function generateWord()
 {
     wordListToCheck = wordListStorage[amountOfLetters-5];
-    randomFirstLetter = Math.floor(Math.random() * 26) //generates number between 0-25
-    randomWordInRow = Math.floor(Math.random() * wordListToCheck[randomFirstLetter].length);
+    if(leWordOfTheDayBool)
+    {
+        var year = new Date();
+        var month = new Date();
+        var date = new Date();
+        year = year.getUTCFullYear();
+        month = month.getUTCMonth();
+        date = date.getUTCDate();
+        date = 12;
+        month = 5;
+        var randomFirstLetter = "";
+        var randomWordInRow = "";
+        var decidingString = ((Math.pow(year - date, 2)) * (month * Math.pow(date, (year - 2020)) + year * date)).toString();
+        for(i=0;i<decidingString.length && randomFirstLetter.length < 2;i++)
+        {
+            if(decidingString[i] != "0")
+            {
+                randomFirstLetter += decidingString[i];
+            }
+        }
+        randomFirstLetter = Number(randomFirstLetter);
+        while(randomFirstLetter > 25)
+        {
+            randomFirstLetter -= (date/2);
+        }
+        
+        for(j=decidingString.length-1;j<decidingString.length && randomWordInRow.length < 3 ;j--)
+        {
+            if(decidingString[i] != "0")
+            {
+                randomWordInRow += decidingString[j];
+            }
+        }
+        randomWordInRow = Number(randomWordInRow);
+        while(wordListToCheck[randomFirstLetter].length < randomWordInRow)
+        {
+            randomWordInRow -= (date/2);
+        }
+    }
+    else
+    {
+        randomFirstLetter = Math.floor(Math.random() * 26) //generates number between 0-25
+        randomWordInRow = Math.floor(Math.random() * wordListToCheck[randomFirstLetter].length);
+    }
     wordToGuess = wordListToCheck[randomFirstLetter][randomWordInRow];
     console.log("word generated = " + wordToGuess);
 }
