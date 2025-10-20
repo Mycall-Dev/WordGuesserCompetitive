@@ -89,7 +89,8 @@ function transferStorage()
 {
     localStorage.setItem("competitiveBool", competitiveBool);
     localStorage.setItem("lettersChosen", lettersChosen);
-    localStorage.setItem("leWordOfTheDayBool", leWordOfTheDayBool);   
+    localStorage.setItem("leWordOfTheDayBool", leWordOfTheDayBool);  
+     
 }
 
 

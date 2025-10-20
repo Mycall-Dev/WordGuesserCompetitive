@@ -208,12 +208,12 @@ var wordListStorage = [fiveLetterWordList, sixLetterWordList, sevenLetterWordLis
 //find a way to make it so unless a theme is active, changing the slider, changes the colors of all elements except some things like white text.
 //find a way to store themes as a color array that sets the wanted colors.
 //YOU HAVE TO MAKE "LE WORD OF THE DAY" IN NEW YORK TIMES ROMAN FONT TO RUB IT IN
-var backGroundColor = "rgb(80, 100, 80)" 
+var backGroundColor = "rgb(80, 100, 80)" ;
 var correctColor = "rgb(80, 100, 140)";
 var halfCorrectColor =  "rgb(217, 156, 34)";
 var notCorrectColor =  "rgb(80, 100, 80)"; //also the backgroundColor
 var startingCellColor = "rgb(100, 130, 100)";
-var notUsedLetterColor = "rgba(255, 255, 255, 1)"
+var notUsedLetterColor = "rgba(255, 255, 255, 1)";
 
 wordGuesserBox = document.getElementById("wordGuesserBox");
 wordRows = wordGuesserBox.getElementsByClassName("row");
@@ -252,14 +252,12 @@ var oldBoxExtension;
 var wordKnowledgeList;
 var editedCellWidth = 0;
 var cellWidth = 0;
-let vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0)
-let vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0)
+let vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
+let vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0);
 var vr;
 settingsWindow = document.getElementById("settingsBox");
-endWindow = document.getElementById("endWindow")
+endWindow = document.getElementById("endWindow");
 var windowsPossible = [wordGuesserBox, settingsWindow, endWindow];
-var competitiveBool = false;
-var leWordOfTheDayBool = false;
 var letterLengthArray = ["letterLengthBox5", "letterLengthBox6", "letterLengthBox7", "letterLengthBox8", "letterLengthBox9", "letterLengthBox10"];
 var randomFirstLetter = "";
 var randomWordInRow = "";
@@ -269,12 +267,15 @@ var date = new Date();
 year = year.getUTCFullYear();
 month = month.getUTCMonth();
 date = date.getUTCDate();
+var competitiveBool;
+var amountOfLetters;
+var leWordOfTheDayBool;
 
-if((localStorage.getItem("competitiveBool")) != null)
+if(competitiveBool != null)
 {
-    competitiveBool = (localStorage.getItem("competitiveBool"));
-    amountOfLetters = (localStorage.getItem("lettersChosen"));
-    leWordOfTheDayBool = (localStorage.getItem("leWordOfTheDayBool"));
+    competitiveBool = localStorage.getItem("competitiveBool");
+    amountOfLetters = localStorage.getItem("lettersChosen");
+    leWordOfTheDayBool = localStorage.getItem("leWordOfTheDayBool");
     console.log("lewordofDayBool " + leWordOfTheDayBool);
     console.log("CompetitiveBool " + competitiveBool);
     console.log("amountoflettersl " + amountOfLetters);
@@ -286,27 +287,9 @@ else
     leWordOfTheDayBool = false;
     competitiveBool = false;
 }
-/* ADD THIS AFTER ADDING MULTIPLE LETTERS MODE
-addEventListener("keydown", function (event) 
-{
-    if (event.key === "Escape") 
-    {
-        exitCurrentWindow();
-    }
-});
 
-function exitCurrentWindow()
-{
-    if(windowsPossible[0].style.display == "none")
-    {
-        for(i=1;i<windowsPossible.length;i++)
-        {
-            windowsPossible[i].style.display = "none";
-        }
-        modeSelectionWindow.style.display = "flex";
-    }
-}
-*/
+
+
 
 generateWordRows();
 function generateWordRows()
@@ -478,7 +461,8 @@ generateWord();
 function generateWord()
 {
     wordListToCheck = wordListStorage[amountOfLetters-5];
-    if(leWordOfTheDayBool == true)
+    console.log(leWordOfTheDayBool);
+    if(leWordOfTheDayBool)
     {
         //generates le word of the day based on amount of letters and the date of the player    
         var decidingString = ((Math.pow(year - date, 2)) * (amountOfLetters * month * Math.pow(date, (year - 2020)) + year * date)).toString();
