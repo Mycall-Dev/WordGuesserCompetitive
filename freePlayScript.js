@@ -286,9 +286,6 @@ else
     amountOfLetters = 5;
     leWordOfTheDayBool = false;
     competitiveBool = false;
-    console.log("lewordofDayBool " + leWordOfTheDayBool);
-    console.log("CompetitiveBool " + competitiveBool);
-    console.log("amountoflettersl " + amountOfLetters);
 }
 
 
@@ -481,7 +478,7 @@ function generateWord()
         randomWordInRow = Number(randomWordInRow);
         randomWordInRow = Math.floor((randomWordInRow/999) * wordListToCheck[randomFirstLetter].length);
     }
-    else
+    else if(!leWordOfTheDayBool)
     {
         console.log(leWordOfTheDayBool);
         randomFirstLetter = Math.floor(Math.random() * 26); //generates number between 0-25
