@@ -286,6 +286,9 @@ else
     amountOfLetters = 5;
     leWordOfTheDayBool = false;
     competitiveBool = false;
+    console.log("lewordofDayBool " + leWordOfTheDayBool);
+    console.log("CompetitiveBool " + competitiveBool);
+    console.log("amountoflettersl " + amountOfLetters);
 }
 
 

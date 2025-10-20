@@ -8,6 +8,7 @@ letterModeButtons = wordModeMenu.getElementsByClassName("letterModeButtons");
 var lettersChosen = 5;
 var competitiveBool = false;
 var leWordOfTheDayBool = false;
+transferStorage();
 
 windowsPossible = [modeSelectionWindow, wordModeMenu, statsWindow, settingsWindow];
 
