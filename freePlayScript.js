@@ -467,7 +467,7 @@ function showMessage(text, timeToShow, timerActivation)
 function generateWord()
 {
     wordListToCheck = wordListStorage[amountOfLetters-5];
-    if(leWordOfTheDayBool)
+    if(leWordOfTheDayBool == true)
     {
         //generates le word of the day based on amount of letters and the date of the player    
         var year = new Date();
