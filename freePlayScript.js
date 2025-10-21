@@ -872,7 +872,7 @@ function showStatsScreen()
     gameActive = false;
     calculatePointsAchieved();
     statsBox.style.display = "block";
-    statsText.innerHTML = "difficulty: " + wordScore+"/10  points achieved: " + pointsAchieved;
+    statsText.innerHTML = "the word was: <span id='yellow'>" + wordToGuess  + "</span><br>difficulty: " + wordScore+"/10<br> points achieved: " + pointsAchieved;
     postStatsScreen.style.display = "flex";
     alphabetUseBox.style.display = "none";
     yword.style.display = "none";
