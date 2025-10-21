@@ -431,7 +431,15 @@ function updatePageTheme(themeCancellation)
 
         for(v=0;v<currentLetter;v++)
         {
-            letterBoxes[v + (currentRow * amountOfLetters)].style.backgroundColor = backGroundColor;
+            if(!won)
+            {
+                letterBoxes[v + (currentRow * amountOfLetters)].style.backgroundColor = backGroundColor;
+            }
+            else
+            {
+                letterBoxes[v + (currentRow * amountOfLetters)].style.backgroundColor = correctColor;
+                letterBoxes[v + (currentRow * amountOfLetters)].style.borderColor = correctColor;
+            }
         }
 
 
@@ -871,7 +879,7 @@ function showStatsScreen()
 {
     gameActive = false;
     calculatePointsAchieved();
-    statsBox.style.display = "block";
+    statsBox.style.display = "flex";
     statsText.innerHTML = "the word was: <span id='yellow'>" + wordToGuess  + "</span><br>difficulty: " + wordScore+"/10<br> points achieved: " + pointsAchieved;
     postStatsScreen.style.display = "flex";
     alphabetUseBox.style.display = "none";
