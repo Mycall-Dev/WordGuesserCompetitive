@@ -22,6 +22,7 @@ body
 
 #subText
 {
+    width: 100vw;
     color: white;
     position: absolute;
     bottom: 0;
