@@ -2,6 +2,7 @@
 <HTML lang="en">
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta charset="UTF-8">
          <link rel='stylesheet' type='text/css' href='freePlayStyle.css'>
         <link rel="icon" type="image/x-icon" href="./img/favicon.ico">
          <title>Le Word</title>
@@ -14,7 +15,11 @@
             <div id="wordGuesserBox" >
                 <p id="yWord">Free Play</p>
                 <div id="statsBox">
-                    <p id="statsText">You got ... points for this victory<word></p>
+                    <div id="upperTextBox">
+                        <div class="emojiState" id="leftEmoji">&#x1F422;</div>
+                        <p id="statsText">You got ... points for this victory<word></p>
+                        <div class="emojiState" id="rightEmoji">&#x1F422;</div>
+                    </div>
                     <div id="buttonBox">
                         <a href="./index.html" class="statsButton" id="exitButton">Main Menu</a>
                         <button onclick="exitStatsScreen(1)" class="statsButton" id="replayButton">New Word</button>
@@ -78,9 +83,6 @@
                         <input type="range" min="0" max="200" value="80" id="blueComponentSlider" class="colorSlider">
                     </div>
                 </div>
-            </div>
-            <div id="endWindow">
-
             </div>
         </div>
 

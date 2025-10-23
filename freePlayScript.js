@@ -280,6 +280,12 @@ leWordOfTheDayBool = localStorage.getItem("leWordOfTheDayBool");
 var wordScore = 0;
 var pointsAchieved;
 yword = document.getElementById("yWord");
+var animToColorArray = [];
+var animActive = false;
+var oneBoxAnimation = 300; //ms
+var animationToUse = "flipX"; //change for different animations
+emojiBoxes = document.getElementsByClassName("emojiState");
+var emojiArray = ["&#x1F3AF", "&#x1F406","&#x1F3C6", "&#x1F44C", "&#x1F422", "&#x1F9A5"] //1 arrowtarget 2 cheetah 3 trophy 4 ok hand sign 5 turtle 6 sloth
 
 if(amountOfLetters == null)
 {
@@ -373,92 +379,95 @@ colorSliders[2].addEventListener("change", (function()
 
 function updatePageTheme(themeCancellation)
 {
-    if(themeCancellation)
+    if(!animActive)
     {
-        themeIsActive = false;
-    }
-
-    if(!themeIsActive)
-    {
-        redComponent = colorSliders[0].value;
-        greenComponent = colorSliders[1].value;
-        blueComponent = colorSliders[2].value;
-
-        backGroundColor = "rgb(" + redComponent + ", " + greenComponent + ", " + blueComponent + ")";
-        highestComponent = Math.max(redComponent, blueComponent, greenComponent);
-        
-        startingCellColor = "rgb(" + (parseInt(redComponent) + 40) + ", " + (parseInt(greenComponent) + 40) + ", " + (parseInt(blueComponent) + 40) + ")";
-        document.getElementsByTagName("body")[0].style.backgroundColor = backGroundColor;
-        for(i=0;i<2;i++)
+        if(themeCancellation)
         {
-            statButtons[i].style.backgroundColor = startingCellColor;
-            statButtons[i].style.borderColor = backGroundColor;
-        }
-        
-
-        notCorrectColor = backGroundColor;
-        wordGuesserBox.style.backgroundColor = startingCellColor;
-        postStatsScreen.style.backgroundColor = startingCellColor;
-        
-        for(h=0;h<amountOfLetters * (LastRow + 1);h++)
-        {
-            if(colorMap[h] == "correct")
-            {
-                letterBoxes[h].style.backgroundColor = correctColor;
-            }
-            else if(colorMap[h] == "halfcorrect")
-            {
-                letterBoxes[h].style.backgroundColor = halfCorrectColor;
-            }
-            else if(colorMap[h] == "wrong")
-            {
-                letterBoxes[h].style.backgroundColor = notCorrectColor;
-            }
-            else if(colorMap[h] == "notUsed")
-            {
-                letterBoxes[h].style.backgroundColor = startingCellColor;
-            }
-
-            if(h < currentRow * 5)
-            {
-                letterBoxes[h].style.borderColor = letterBoxes[h].style.backgroundColor;
-            }
-            else
-            {
-                letterBoxes[h].style.borderColor = backGroundColor;
-            }
+            themeIsActive = false;
         }
 
-        for(v=0;v<currentLetter;v++)
+        if(!themeIsActive)
         {
-            if(!won)
+            redComponent = colorSliders[0].value;
+            greenComponent = colorSliders[1].value;
+            blueComponent = colorSliders[2].value;
+
+            backGroundColor = "rgb(" + redComponent + ", " + greenComponent + ", " + blueComponent + ")";
+            highestComponent = Math.max(redComponent, blueComponent, greenComponent);
+            
+            startingCellColor = "rgb(" + (parseInt(redComponent) + 40) + ", " + (parseInt(greenComponent) + 40) + ", " + (parseInt(blueComponent) + 40) + ")";
+            document.getElementsByTagName("body")[0].style.backgroundColor = backGroundColor;
+            for(i=0;i<2;i++)
             {
-                letterBoxes[v + (currentRow * amountOfLetters)].style.backgroundColor = backGroundColor;
+                statButtons[i].style.backgroundColor = startingCellColor;
+                statButtons[i].style.borderColor = backGroundColor;
             }
-            else
+            
+
+            notCorrectColor = backGroundColor;
+            wordGuesserBox.style.backgroundColor = startingCellColor;
+            postStatsScreen.style.backgroundColor = startingCellColor;
+            
+            for(h=0;h<amountOfLetters * (LastRow + 1);h++)
             {
-                letterBoxes[v + (currentRow * amountOfLetters)].style.backgroundColor = correctColor;
-                letterBoxes[v + (currentRow * amountOfLetters)].style.borderColor = correctColor;
+                if(colorMap[h] == "correct")
+                {
+                    letterBoxes[h].style.backgroundColor = correctColor;
+                }
+                else if(colorMap[h] == "halfcorrect")
+                {
+                    letterBoxes[h].style.backgroundColor = halfCorrectColor;
+                }
+                else if(colorMap[h] == "wrong")
+                {
+                    letterBoxes[h].style.backgroundColor = notCorrectColor;
+                }
+                else if(colorMap[h] == "notUsed")
+                {
+                    letterBoxes[h].style.backgroundColor = startingCellColor;
+                }
+
+                if(h < currentRow * 5)
+                {
+                    letterBoxes[h].style.borderColor = letterBoxes[h].style.backgroundColor;
+                }
+                else
+                {
+                    letterBoxes[h].style.borderColor = backGroundColor;
+                }
             }
-        }
+
+            for(v=0;v<currentLetter;v++)
+            {
+                if(!won)
+                {
+                    letterBoxes[v + (currentRow * amountOfLetters)].style.backgroundColor = backGroundColor;
+                }
+                else
+                {
+                    letterBoxes[v + (currentRow * amountOfLetters)].style.backgroundColor = correctColor;
+                    letterBoxes[v + (currentRow * amountOfLetters)].style.borderColor = correctColor;
+                }
+            }
 
 
-        for(u=0;u<26;u++)
-        {
-            if(alphabetColorUpdateList[u] == "correct")
+            for(u=0;u<26;u++)
             {
-                alphabetColors[u] = correctColor;
-                alphabetTiles[u].style.backgroundColor = correctColor;
-            }
-            else if(alphabetColorUpdateList[u] == "halfcorrect")
-            {
-                alphabetColors[u] = halfCorrectColor;
-                alphabetTiles[u].style.backgroundColor = halfCorrectColor;
-            }
-            else if(alphabetColorUpdateList[u] == "wrong")
-            {
-                alphabetColors[u] = notCorrectColor;
-                alphabetTiles[u].style.backgroundColor = notCorrectColor;
+                if(alphabetColorUpdateList[u] == "correct")
+                {
+                    alphabetColors[u] = correctColor;
+                    alphabetTiles[u].style.backgroundColor = correctColor;
+                }
+                else if(alphabetColorUpdateList[u] == "halfcorrect")
+                {
+                    alphabetColors[u] = halfCorrectColor;
+                    alphabetTiles[u].style.backgroundColor = halfCorrectColor;
+                }
+                else if(alphabetColorUpdateList[u] == "wrong")
+                {
+                    alphabetColors[u] = notCorrectColor;
+                    alphabetTiles[u].style.backgroundColor = notCorrectColor;
+                }
             }
         }
     }
@@ -654,7 +663,7 @@ alphabetUseBox.addEventListener('click', (event) =>
 
 function keyWasPressed(keyPressed)
 {
-    if(gameActive)
+    if(gameActive && !animActive)
     {
         if(keyPressed.charCodeAt() >= 97 && keyPressed.charCodeAt() <= 122)
         {
@@ -746,6 +755,11 @@ function calculateDifference()
 
 function CompareCurrentGuess()
 {
+    animToColorArray = [];
+    for(f=0;f<amountOfLetters;f++)
+    {
+        animToColorArray.push(notCorrectColor);
+    }
     correctlyGuessedIndexList = [];
     calculateDifference();
     for(i=0;i<amountOfLetters;i++)
@@ -763,8 +777,11 @@ function CompareCurrentGuess()
     {
             if(currentGuess[i] == wordToGuess[i])
             {
+                /*
                 letterBoxes[currentRow * amountOfLetters + i].style.backgroundColor = correctColor;
                 letterBoxes[currentRow * amountOfLetters + i].style.borderColor = correctColor;
+                */
+                animToColorArray[i] = correctColor;
                 alphabetCount[currentGuess[i].charCodeAt()-97]--;
                 alphabetColors[returnKeyboardValue(currentGuess[i])] = correctColor;
                 alphabetColorUpdateList[returnKeyboardValue(currentGuess[i])] = "correct";
@@ -791,8 +808,11 @@ function CompareCurrentGuess()
                     if(alphabetCount[currentGuess[i].charCodeAt()-97] > 0)
                     {
                         alphabetCount[currentGuess[i].charCodeAt()-97]--;
+                        /*
                         letterBoxes[currentRow * amountOfLetters + i].style.backgroundColor = halfCorrectColor;
                         letterBoxes[currentRow * amountOfLetters + i].style.borderColor = halfCorrectColor;
+                        */
+                        animToColorArray[i] = halfCorrectColor;
                         if(alphabetColors[returnKeyboardValue(currentGuess[i])] != correctColor)
                         {
                             alphabetColors[returnKeyboardValue(currentGuess[i])] = halfCorrectColor;
@@ -804,7 +824,7 @@ function CompareCurrentGuess()
             }
         }
 
-        for(r=0;r<amountOfLetters * (LastRow + 1);r++)
+        /*for(r=0;r<amountOfLetters * (LastRow + 1);r++)
         {
             if(letterBoxes[r].style.backgroundColor == correctColor)
             {
@@ -819,14 +839,80 @@ function CompareCurrentGuess()
                 colorMap[r] = "wrong";
             }
         }
+            */
         
 
-        updateAlphabetColors();
+        
     }
 
-    checkRow();
-    updateWordKnowledge();
+    handleLetterBoxAnims()
+    
 }
+
+function handleLetterBoxAnims()
+{
+    animActive = true;
+    //make sure to handle win = true here
+    spinInterval = setTimeout(SpinBox, oneBoxAnimation * 0.6);
+    var currentAnimatedBox = 0;
+
+    function ColorBox()
+    {
+        letterBoxes[currentAnimatedBox + (currentRow * amountOfLetters)].style.backgroundColor = animToColorArray[currentAnimatedBox];
+        letterBoxes[currentAnimatedBox + (currentRow * amountOfLetters)].style.borderColor = animToColorArray[currentAnimatedBox];
+        currentAnimatedBox++;
+        if(currentAnimatedBox == amountOfLetters)
+        {
+            SpinBox();
+        }
+        else
+        {
+            spinInterval = setTimeout(SpinBox, oneBoxAnimation * 0.6);
+        }
+        
+    }
+
+
+    function SpinBox()
+    {
+        if(currentAnimatedBox != amountOfLetters)
+        {
+            colorInterval = setTimeout(ColorBox, (oneBoxAnimation/2));  
+            letterBoxes[currentAnimatedBox + (currentRow * amountOfLetters)].classList.toggle(animationToUse);
+        }
+        else
+        {
+            for(r=0;r<amountOfLetters;r++)
+            {
+                if(letterBoxes[r + (currentRow * amountOfLetters)].style.backgroundColor == correctColor)
+                {
+                    colorMap[r + (currentRow * amountOfLetters)] = "correct";
+                }
+                else if(letterBoxes[r + (currentRow * amountOfLetters)].style.backgroundColor == halfCorrectColor)
+                {
+                    colorMap[r + (currentRow * amountOfLetters)] = "halfcorrect";
+                }
+                else if(letterBoxes[r + (currentRow * amountOfLetters)].style.backgroundColor == notCorrectColor)
+                {
+                    colorMap[r + (currentRow * amountOfLetters)] = "wrong";
+                }
+            }
+            checkRow();
+            
+            if(!won)
+            {
+                updateWordKnowledge();
+                updateAlphabetColors();
+            }
+            animActive = false;
+        }
+        
+    }
+
+}
+
+
+
 
 function returnKeyboardValue(valueToCheck)
 {
@@ -852,8 +938,8 @@ function checkRow()
     {
         if(currentRow < LastRow)
         {
-            currentRow++;
             currentLetter = 0;
+            currentRow++;
         }
         else
         {
@@ -889,22 +975,62 @@ function showStatsScreen()
 
 function exitStatsScreen()
 {
-        statsBox.style.display = "none";
-        postStatsScreen.style.display = "none";
-        alphabetUseBox.style.display = "flex";
-        yword.style.display = "flex";
-        wordGuesserBox.style.marginBottom = 0 + "vh";
-        resetGame();
+    statsBox.style.display = "none";
+    postStatsScreen.style.display = "none";
+    alphabetUseBox.style.display = "flex";
+    yword.style.display = "flex";
+    wordGuesserBox.style.marginBottom = 0 + "vh";
+    resetGame();
 }
 
 function gameOver(exitStatus)
 {
-    showStatsScreen(exitStatus);    
+    showStatsScreen(exitStatus);   
+    winOrLoseAnimation(exitStatus); 
     //maybe add sfx or animations
+}
+
+function winOrLoseAnimation(exitStatus)
+{
+    if(exitStatus == 1)
+    {
+        emojiBoxes[0].innerHTML = emojiArray[currentRow] + ";";
+        emojiBoxes[1].innerHTML = emojiArray[currentRow] + ";";
+    }
+    else
+    {
+        emojiBoxes[0].innerHTML = "&#x1F44E" + ";";
+        emojiBoxes[1].innerHTML = "&#x1F44E" + ";";
+    }
+    /*
+    emojiFontSize = 1;
+    scalingUp = true;
+    
+    sizeInterval = setInterval(scaleEmojis, 20);
+    function scaleEmojis()
+    {
+        if(scalingUp)
+        {
+            emojiFontSize += 0.01;
+        }
+        else if(!scalingUp)
+        {
+            emojiFontSize -= 0.01;
+        }
+
+        if(emojiFontSize < 1 && !scalingUp || emojiFontSize > 1.2 && scalingUp)
+        {
+            scalingUp = !scalingUp;
+        }
+        emojiBoxes[0].style.fontSize = emojiFontSize * 400 + "%";
+        emojiBoxes[1].style.fontSize = emojiFontSize * 400 + "%";
+    }
+        */
 }
 
 function resetGame()
 {
+    //clearInterval(sizeInterval);
     resetWordKnowledge();
     resetAlphabetColors();
     resetColorMap();
@@ -920,6 +1046,7 @@ function resetGame()
             letterBoxes[y * amountOfLetters + x].style.backgroundColor = startingCellColor;
             letterBoxes[y * amountOfLetters + x].style.borderColor = notCorrectColor;
             letterBoxes[y * amountOfLetters + x].innerHTML = "";
+            letterBoxes[y * amountOfLetters + x].classList.remove(animationToUse);
         }
     }
 
