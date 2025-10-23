@@ -91,12 +91,12 @@ body
 
 #leftEmoji
 {
-    left: -3.5vh;
+    left: -4.5vh;
 }
 
 #rightEmoji
 {
-    right: -3.5vh;
+    right: -5.5vh;
 }
 
 
@@ -385,17 +385,17 @@ body
 
     .emojiState
     {
-        font-size: 6vh;       
+        font-size: 5.5vh;       
     }
 
     #leftEmoji
     {
-        left: -2vh;
+        left: -1vh;
     }
 
     #rightEmoji
     {
-        right: -2vh;
+        right: -1vh;
     }
 
     #yWord
